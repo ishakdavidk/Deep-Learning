@@ -1,0 +1,24 @@
+Dataset:   manuf_learn.dat
+
+Source: A.B. Badiru (1991). "Manufacturing Cost Estimation: A Multivariate
+Learning Curve Approach," Journal of Manufacturing Systems, Vol. 10, #6,
+pp. 431-441.
+
+Description: Results of 2 replicates of a learning curve experiment.
+Model fit is:
+Y = Cumulative average cost per unit
+X1 = cumulative production units
+X2 = cumulative training time in hours
+Y = B0*(X1^B1)*(X2^B2)*eps    E(eps) = 1
+==>  ln(Y) = ln(B0) + B1*ln(X1) + B2*ln(X2) + ln(eps)
+
+Data/Columns
+Treatment Number   7-8
+Observation number   15-16
+Cumulative average cost (Y, in dollars)  18-24
+Cumulative Production (X1, in Units)   26-32
+Cumulative Training Time (X2, in hours)   34-40
+ln(Y)           42-48
+ln(X1)          50-56
+ln(X2)          58-64
+

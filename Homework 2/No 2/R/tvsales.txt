@@ -1,0 +1,21 @@
+Dataset:   tvsales.dat
+
+Source: H. Levin (1964). "Economic Effects of Broadcast Licensing", 
+Journal of Political Economy, Vol. 72, #2, pp152-162.
+
+Description: Data on sale prices (minus replacement costs) in $1000s for
+31 television stations, along with 8 explanatory variables.
+
+Variables/Columns:
+
+Station Call letters  1-4
+Sale Price 13-16    /* Less Replacement costs in $1000s  */
+Market retail sales ($M)  21-24
+Market Buying Income  ($M)  29-32
+TV Homes/station (1000s)   37-40
+Network Hourly Rate ($)  45-48
+National Spot Rate ($)  54-56
+Age of Station    64  /* 0=Started before 1/1/1952, 1=after  */
+Number of ties with major networks    72
+Percent of Market Population in Urban areas   77-80
+

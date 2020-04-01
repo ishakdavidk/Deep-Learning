@@ -1,0 +1,5 @@
+mullin_dataset<-read.table("/cloud/project/No 2/tvsales.dat", header=FALSE, skip=0)
+print(mullin_dataset)
+mullin_model<-lm(V2 ~ V3+V4+V5+V6+V7+V8+V9+V10, data=mullin_dataset)
+print(mullin_model)
+summary(mullin_model)
