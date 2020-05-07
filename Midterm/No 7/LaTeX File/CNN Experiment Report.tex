@@ -1,0 +1,235 @@
+\documentclass[11pt]{article}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[table]{xcolor}
+\usepackage{enumitem}
+\usepackage{multirow}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks, urlcolor = blue
+}
+
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+
+\begin{document}
+
+\title{\endgraf\rule{\textwidth}{.4pt}\\Convolutional Neural Network (CNN) Experiment for notMNIST Dataset\endgraf\rule{\textwidth}{.4pt}}
+\author{David Ishak Kosasih (20195033)}
+\date{\today}
+\maketitle
+
+\begin{flushleft}
+NB : Experiment was conducted by using keras. Training epoch was fixed to 10 for all of the experiment. Source code can be found on \url{https://github.com/ishakdavidk/Deep-Learning/blob/master/Midterm/No\%207/notMNIST.ipynb}.   
+\end{flushleft}
+
+\begin{enumerate}
+\setcounter{enumi}{0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% number 1
+\item Mean subtraction and normalization :
+	% explenation
+  	\begin{description}[style=unboxed,leftmargin=0.2cm]
+		\item Mean subtraction is usually calculated by subtracting the mean value of our dataset from every individual input data. In keras, suppose x is our input matrix, then to calculate mean subtraction we only need to perform x = x - x.mean(). 
+		\item For normalization, I divide each data dimension by its standard deviation after it has been zero-centered (Mean subtraction). In order to achieve this in keras, we only need to perform x = x / x.std().
+	\end{description}	
+	
+	% Original pixel value
+  	\begin{description}
+		\item
+		\begin{tabular}{|p{2.3cm}|C{1.5cm}|C{1.5cm}|C{2cm}|C{2cm}|}
+		\hline
+		\multirow{2}{*}{} & \multicolumn{4}{c|}{Original Pixel Value} \\ \cline{2-5} 
+                  		& Min      & Max      & Mean      & Std     \\ \hline
+		Train             & 0        & 255      & 108.39426         & 116.93016       \\ \hline
+		Test              & 0        & 255      & 108.68821          & 117.0037       \\ \hline
+		\end{tabular}
+	\end{description}
+	
+	\begin{description}[style=unboxed,leftmargin=0.2cm]
+		\item The table above is the original pixel value.
+	\end{description}	
+	
+	% test set table
+	\begin{description}
+		\item
+		\begin{tabular}{|p{2.3cm}|C{1.5cm}|C{1.5cm}|C{2cm}|C{2cm}|}
+		\hline
+		\multirow{2}{*}{} & \multicolumn{4}{c|}{New Pixel Value} \\ \cline{2-5} 
+                  		& Min      & Max      & Mean      & Std     \\ \hline
+		Train             & -0.92701        & 1.25379      & 2.8226e-17         & 1.0       \\ \hline
+		Test              & -0.92893        & 1.25049      & -2.3915e-17          & 1.0       \\ \hline
+		\end{tabular}
+  	\end{description}
+  	
+  	\begin{description}[style=unboxed,leftmargin=0.2cm]
+		\item The table above is the new pixel value of train and test dataset after being subtracted by its mean value and normalized. We can see now that the mean value of our dataset is zero and its standard deviation is one.
+	\end{description}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% number 2
+\item Xavier and He initialization experiment :
+	% explenation
+  	\begin{description}[style=unboxed,leftmargin=0.2cm]
+        \item In order to perform Xavier initialization in keras, we only need to specify the value of kernel\_initializer parameter in keras.layer.Dense function to glorot\_normal. If we want to use He initialization, we just need to assign he\_normal as the value of the parameter.
+    \end{description}
+    
+  	% training set table
+  	\begin{description}
+		\item
+		\begin{tabular}{|p{2.3cm}|c|c|c|}
+		\hline
+		\multicolumn{1}{|c|}{\multirow{2}{*}{Initialization}} & \multicolumn{3}{c|}{Accuracy on Training Data} \\ \cline{2-4} 
+		\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}1 Hidden\\ 128 Neurons \end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}20 Hidden\\ 128 Neurons Each\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}1 Hidden\\ 2560 Neurons\end{tabular}} \\ \hline
+		Xavier & 0.9823 &  0.8317 & 0.96590 \\ \hline
+		He & 0.9815 & 0.9096 & 0.9585 \\ \hline
+		\end{tabular}	
+	\end{description}
+	
+	% test set table
+	\begin{description}
+		\item
+		\begin{tabular}{|p{2.3cm}|c|c|c|}
+		\hline
+		\multicolumn{1}{|c|}{\multirow{2}{*}{Initialization}} & \multicolumn{3}{c|}{Accuracy on Test Data} \\ \cline{2-4} 
+		\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}1 Hidden\\ 128 Neurons \end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}20 Hidden\\ 128 Neurons Each\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}1 Hidden\\ 2560 Neurons\end{tabular}} \\ \hline
+		Xavier & 0.91369367 & 0.8280282 & 0.91454816 \\ \hline
+		He & 0.9151891 & 0.8867763 & 0.9017304 \\ \hline
+		\end{tabular}
+  	\end{description}
+  	
+  	\begin{description}[style=unboxed,leftmargin=0.2cm]
+        \item The two table above compare the performance of xavier and he initialization on training and test data. These two initialization technique have similar performance; however, He initialization tend to perform better when the model has a large number of layers.
+    \end{description}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% number 3
+\item Network configuration experiment :
+	% explenation
+  	\begin{description}[style=unboxed,leftmargin=0.2cm]
+        \item In this experiment, 3 models were used. The first model has 1 hidden layer with 128 neurons, the second model has 10 hidden layers with 128 neuron each while the last model has 1 hidden layer with 2560 neurons. With this set-up, I tried to observe the performance of the model when it has normal number of neurons and hidden layers, large number of layers and large number of neurons. Among all of these three set-up, large number of neurons had the best performance on the test data, while when we use too large number of hidden layer, the model tend to have a bad overall performance. Theoretically, when we use too large number of neurons, the model will be prone to over-fit our dataset. However, this cannot be seen from my experiment since the training epoch was fixed to only 10. For observing this theory, we need to conduct further experiment.  
+        \item The experiment result can seen in the table below. 
+    \end{description}
+
+  	% training and test set table
+  	\begin{description}
+		\item
+		\begin{tabular}{|p{2.3cm}|c|c|c|}
+		\hline
+		\multicolumn{1}{|c|}{\multirow{2}{*}{Dataset}} & \multicolumn{3}{c|}{Accuracy} \\ \cline{2-4} 
+		\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}1 Hidden\\ 128 Neurons \end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}20 Hidden\\ 128 Neurons Each\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}1 Hidden\\ 2560 Neurons\end{tabular}} \\ \hline
+		Training & 0.9830 & 0.8886 & 0.9629 \\ \hline
+		Test & 0.9070711 &  0.8786584 &  0.9081393 \\ \hline
+		\end{tabular}	
+	\end{description}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% number 4
+\item Gradient optimization techniques experiment :	
+	% explenation
+  	\begin{description}[style=unboxed,leftmargin=0.2cm]      
+        \item In this experiment, I observed Adam and RMSprop optimization techniques. These two techniques have a very similar result. If we read the paper named "ADAM - A Method for Stochastic Optimization", the author himself said that his technique, Adam, has a very similar performance with RMSprop; however, since RMSprop lacks a bias-correction term, Adam optimization still tend to have better performance.
+        \newline After running several experiment, I found that RMSprop performance is still superior to Adam optimization performance, but the difference was actually very small.
+        \item The experiment result can seen in the table below. 
+    \end{description}
+
+  	% training set table
+  	\begin{description}
+		\item
+		\begin{tabular}{|p{2.3cm}|c|c|c|}
+		\hline
+		\multicolumn{1}{|c|}{\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Gradient\\ Optimization\end{tabular}}} & \multicolumn{3}{c|}{Accuracy on Training Data} \\ \cline{2-4} 
+		\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}1 Hidden\\ 128 Neurons \end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}20 Hidden\\ 128 Neurons Each\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}1 Hidden\\ 2560 Neurons\end{tabular}} \\ \hline
+		Adam & 0.9821 & 0.7632 & 0.9699 \\ \hline
+		RMSprop & 0.9816 & 0.9135 & 0.9712 \\ \hline
+		\end{tabular}	
+	\end{description}
+	
+	% test set table
+	\begin{description}
+		\item
+		\begin{tabular}{|p{2.3cm}|c|c|c|}
+		\hline
+		\multicolumn{1}{|c|}{\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Gradient\\ Optimization\end{tabular}}} & \multicolumn{3}{c|}{Accuracy on Test Data} \\ \cline{2-4} 
+		\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}1 Hidden\\ 128 Neurons \end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}20 Hidden\\ 128 Neurons Each\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}1 Hidden\\ 2560 Neurons\end{tabular}} \\ \hline
+		Adam & 0.9049348 & 0.76329845 & 0.8876308 \\ \hline
+		RMSprop & 0.90920746 & 0.9049348 & 0.91006196 \\ \hline
+		\end{tabular}
+  	\end{description}
+  	
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% number 5
+\item Activation functions experiment :
+	% explenation
+  	\begin{description}[style=unboxed,leftmargin=0.2cm]      
+        \item For the activation function, I opted to run experiment on ReLU and Leaky ReLu. The Difference between these two activations is that Leaky ReLu allows for a small, non-zero gradient. Theoretically, Leaky ReLu should outperform ReLU since it ensure that the neuron will never die; however, in this experiment, ReLU tend to perform better than Leaky ReLu except when the model has a very deep layer. In this situation, Leaky ReLU completely outperform ReLU.
+        \item The experiment result can seen in the table below. 
+    \end{description}
+
+  	% training set table
+  	\begin{description}
+		\item
+		\begin{tabular}{|p{2.3cm}|c|c|c|}
+		\hline
+		\multicolumn{1}{|c|}{\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Activation \\ Functions\end{tabular}}} & \multicolumn{3}{c|}{Accuracy on Training Data} \\ \cline{2-4} 
+		\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}1 Hidden\\ 128 Neurons \end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}20 Hidden\\ 128 Neurons Each\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}1 Hidden\\ 2560 Neurons\end{tabular}} \\ \hline
+		ReLU & 0.9793 & 0.8453 & 0.9662 \\ \hline
+		Leaky ReLU & 0.9645 & 0.9145 & 0.9344 \\ \hline
+		\end{tabular}	
+	\end{description}
+	
+	% test set table
+	\begin{description}
+		\item
+		\begin{tabular}{|p{2.3cm}|c|c|c|}
+		\hline
+		\multicolumn{1}{|c|}{\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Activation \\ Functions\end{tabular}}} & \multicolumn{3}{c|}{Accuracy on Test Data} \\ \cline{2-4} 
+		\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}1 Hidden\\ 128 Neurons \end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}20 Hidden\\ 128 Neurons Each\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}1 Hidden\\ 2560 Neurons\end{tabular}} \\ \hline
+		ReLU & 0.91006196 & 0.8504593 & 0.9068575 \\ \hline
+		Leaky ReLU & 0.90514845 & 0.85964537 & 0.8933988 \\ \hline
+		\end{tabular}
+  	\end{description}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% number 6
+\item Regularization techniques experiment :
+	% explenation
+  	\begin{description}[style=unboxed,leftmargin=0.2cm]      
+        \item In this experiment, I opted to observed Dropout and L1. From the experiment result, we can clearly see that L1 tend to perform better on training data while Dropout tend to perform better on test data. This indicates that Dropout outperform L1 in term of preventing over-fit problem. However, both regularization techniques made the model performance even worse when it has too large number of layers.
+        \item The experiment result can seen in the table below. 
+    \end{description}
+    
+  	% training set table
+  	\begin{description}
+		\item
+		\begin{tabular}{|p{2.3cm}|c|c|c|}
+		\hline
+		\multicolumn{1}{|c|}{\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Regulari- \\ zation\end{tabular}}} & \multicolumn{3}{c|}{Accuracy on Training Data} \\ \cline{2-4} 
+		\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}1 Hidden\\ 128 Neurons \end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}10 Hidden\\ 128 Neurons Each\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}1 Hidden\\ 1280 Neurons\end{tabular}} \\ \hline
+		Dropout & 0.9158 & 0.3333 & 0.9286 \\ \hline
+		L1 & 0.9714 & 0.1008 & 0.9699 \\ \hline
+		\end{tabular}	
+	\end{description}
+	
+	% test set table
+	\begin{description}
+		\item
+		\begin{tabular}{|p{2.3cm}|c|c|c|}
+		\hline
+		\multicolumn{1}{|c|}{\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Regulari- \\ zation\end{tabular}}} & \multicolumn{3}{c|}{Accuracy on Test Data} \\ \cline{2-4} 
+		\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}1 Hidden\\ 128 Neurons \end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}10 Hidden\\ 128 Neurons Each\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}1 Hidden\\ 1280 Neurons\end{tabular}} \\ \hline
+		Dropout & 0.9141209 & 0.10446486 & 0.9074984 \\ \hline
+		L1 & 0.9023713 & 0.09335612 & 0.9047212 \\ \hline
+		\end{tabular}
+  	\end{description}
+
+\end{enumerate}
+
+\end{document}
