@@ -1,0 +1,81 @@
+\documentclass[11pt]{article}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[table]{xcolor}
+\usepackage{enumitem}
+\usepackage{multirow}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks, urlcolor = blue
+}
+
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+
+\begin{document}
+
+\title{\endgraf\rule{\textwidth}{.4pt}\\Auto Encoder No 1}
+\author{David Ishak Kosasih (20195033)}
+\date{\today\endgraf\rule{\textwidth}{.4pt}}
+\maketitle
+
+\begin{enumerate}
+\setcounter{enumi}{0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% number 1
+\item MNIST Dataset :
+	% explenation
+  	\begin{description}[style=unboxed,leftmargin=0.2cm]
+		\item In this experiment, I changed 3 parameters, namely number of epoch, hidden layers and neurons. The result is as follows :
+	\end{description}	
+	
+	% Original pixel value
+  	\begin{description}
+		\item
+		\begin{tabular}{|p{4cm}|C{3cm}|C{3cm}|}
+		\hline
+                  		& loss      & val\_loss  \\ \hline
+		Original             & 0.2029        & 0.1934  \\ \hline
+		Epoch              & 0.1669        & 0.1630      \\ \hline
+		Hidden Layers (HL)             & 0.2014        & 0.1895    \\ \hline
+		Neurons              & 0.1989        & 0.1895   \\ \hline
+		\end{tabular}
+	\end{description}
+	
+	\begin{description}[style=unboxed,leftmargin=0.2cm]
+		\item As can be seen from the table above, increasing the number of epoch gave us better accuracy than increasing the number of hidden layers or neurons. This is because the original experiment only uses 5 epoch; therefore, increasing it by 45 will obviously improve the accuracy. With only 5 epoch, modifying the number of hidden layers or neurons will not give us considerable improvement. The proof of this hypothesis can be seen from the table above. Although it produce better accuracy compared to the original experiment, the difference is still not significant. The output visualization of this experiment can be found on the following github URL : \url{https://github.com/ishakdavidk/Deep-Learning/tree/master/Homework\%206/No\%201}.
+	\end{description}	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% number 2
+\item Cifar-10 Dataset :
+	% explenation
+  	\begin{description}[style=unboxed,leftmargin=0.2cm]
+        \item For this experiment, I also modified 3 parameters, namely number of epoch, hidden layers and neurons. However, instead of modifying the number of hidden layers and neurons separately, I changed both at the same time to improve the accuracy. The result is as follows :
+    \end{description}
+    
+  	% Original pixel value
+  	\begin{description}
+  		\item
+  		\begin{tabular}{|p{4cm}|C{3cm}|C{3cm}|}
+  			\hline
+  			& loss      & val\_loss  \\ \hline
+  			Original             & 0.6368        & 0.6291  \\ \hline
+  			Epoch              & 0.6266        & 0.6193      \\ \hline
+  			HL and neurons              & 0.5898        & 0.5795    \\ \hline
+  		\end{tabular}
+  	\end{description}
+  	
+  	\begin{description}[style=unboxed,leftmargin=0.2cm]
+        \item In this experiment with Cifar-10 dataset, I found slightly unexpected result. My initial hypothesis was that by increasing number of epoch to 50 epoch, will significantly improve the result; however this wasn't the case. Although, this approach may indeed produce better result than the original experiments, the difference is nearly unnoticeable. Increasing only number of hidden layers or neurons was also unable to improve the accuracy. Therefore, in the end I modified number of both neurons and hidden layers at the time which finally produced way better result as can be seen from the table above. The output visualization of this experiment can be found on the following github URL : \url{https://github.com/ishakdavidk/Deep-Learning/tree/master/Homework\%206/No\%201}.
+    \end{description}
+
+\end{enumerate}
+
+\end{document}
